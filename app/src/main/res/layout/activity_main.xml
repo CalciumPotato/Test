@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/banner_main" />
+
     <TextView
         android:id="@+id/tv_title_billBD"
         android:layout_width="match_parent"
@@ -25,19 +31,57 @@
             android:layout_height="0dp"
             android:layout_weight="1" >
 
+<!--
             <Button
                 android:id="@+id/btn_goEqualBD"
                 android:layout_width="0px"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Equal" />
+-->
 
+            <FrameLayout
+                android:id="@+id/btn_goEqualBD"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableTop="@drawable/ic_launcher_foreground"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="Equal Breakdown" />
+            </FrameLayout>
+
+<!--
             <Button
                 android:id="@+id/btn_goCustomBD"
                 android:layout_width="0px"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Custom" />
+-->
+
+            <FrameLayout
+                android:id="@+id/btn_goCustomBD"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableTop="@drawable/ic_launcher_foreground"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="Custom Breakdown" />
+            </FrameLayout>
 
         </TableRow>
 
@@ -46,19 +90,39 @@
             android:layout_height="0dp"
             android:layout_weight="1" >
 
-            <Button
+            <FrameLayout
                 android:id="@+id/btn_goCombinedBD"
-                android:layout_width="0px"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Combined" />
+                android:layout_weight="1" >
 
-            <Button
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableTop="@drawable/ic_launcher_foreground"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="Combined Breakdown" />
+            </FrameLayout>
+
+            <FrameLayout
                 android:id="@+id/btn_goHistory"
-                android:layout_width="0px"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="History" />
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableTop="@drawable/ic_launcher_foreground"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="Equal Breakdown" />
+            </FrameLayout>
 
         </TableRow>
 

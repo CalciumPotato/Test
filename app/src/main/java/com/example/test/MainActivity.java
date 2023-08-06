@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,10 +16,10 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     // 0. Initialize buttons
-    private Button btn_equalBD;
-    private Button btn_customBD;
-    private Button btn_combinedBD;
-    private Button btn_history;
+    private FrameLayout btn_equalBD;
+    private FrameLayout btn_customBD;
+    private FrameLayout btn_combinedBD;
+    private FrameLayout btn_history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
