@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title_billBD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Equal break-down" />
+
+    <EditText
+        android:id="@+id/input_amount_equalBD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter bill amount"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/input_people_equalBD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter number of people"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/output_amount_equalBD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Amount (each person): " />
+
+    <Button
+        android:id="@+id/btn_calc_equalBD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0000ff"
+        android:text="Calculate (Equal break-down)"
+        android:textColor="#ffffff" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

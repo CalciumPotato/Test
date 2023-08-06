@@ -7,126 +7,61 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <ScrollView
+    <TextView
+        android:id="@+id/tv_title_billBD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:text="Bill break-down" />
+
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_title_billBD"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bill break-down" />
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
             <Button
-                android:id="@+id/btn_equalBD"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Equal break-down" />
-
-            <EditText
-                android:id="@+id/input_amount_equalBD"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter bill amount"
-                android:inputType="numberDecimal" />
-
-            <EditText
-                android:id="@+id/input_people_equalBD"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter number of people"
-                android:inputType="number" />
-
-            <TextView
-                android:id="@+id/output_amount_equalBD"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Amount (each person): " />
+                android:id="@+id/btn_goEqualBD"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Equal" />
 
             <Button
-                android:id="@+id/btn_calc_equalBD"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#0000ff"
-                android:text="Calculate (Equal break-down)"
-                android:textColor="#ffffff" />
+                android:id="@+id/btn_goCustomBD"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Custom" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
             <Button
-                android:id="@+id/btn_customBD"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Custom break-down" />
-
-            <EditText
-                android:id="@+id/input_amount_BD_2a"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter bill amount"
-                android:inputType="numberDecimal" />
-
-            <TextView
-                android:id="@+id/tv_person_pcnt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Percentage each person:" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="134dp">
-
-                <LinearLayout
-                    android:id="@+id/scrollView_pcnt_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/input_pcnt0"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Enter percentage 1"
-                        android:inputType="numberDecimal" />
-                </LinearLayout>
-            </ScrollView>
-
-            <TextView
-                android:id="@+id/output_amount_custBD"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Amount (each person): " />
+                android:id="@+id/btn_goCombinedBD"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Combined" />
 
             <Button
-                android:id="@+id/btn_add_custBD_pcnt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00ff00"
-                android:text="Add person"
-                android:textColor="#000000" />
+                android:id="@+id/btn_goHistory"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="History" />
 
-            <Button
-                android:id="@+id/btn_calc_custBD_pcnt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#0000ff"
-                android:text="Calculate (Percentage)"
-                android:textColor="#ffffff" />
+        </TableRow>
 
-            <Button
-                android:id="@+id/btn_combinationBD"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Combination break-down" />
-
-        </LinearLayout>
-    </ScrollView>
+    </TableLayout>
 
 </LinearLayout>
