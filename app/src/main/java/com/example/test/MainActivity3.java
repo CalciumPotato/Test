@@ -30,7 +30,7 @@ public class MainActivity3 extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
 
         // 1. Bridging between the components in XML to the program
-        input_amount_pcntBD = findViewById(R.id.input_amount_BD_2a);
+        //input_amount_pcntBD = findViewById(R.id.input_amount_BD_2a);
         btn_add_custBD_pcnt = findViewById(R.id.btn_add_custBD_pcnt);
         btn_calc_custBD_pcnt = findViewById(R.id.btn_calc_custBD_pcnt);
         output_amount_custBD = findViewById(R.id.output_amount_custBD);
