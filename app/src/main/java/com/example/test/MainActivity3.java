@@ -34,7 +34,7 @@ public class MainActivity3 extends AppCompatActivity {
         btn_add_custBD_pcnt = findViewById(R.id.btn_add_custBD_pcnt);
         btn_calc_custBD_pcnt = findViewById(R.id.btn_calc_custBD_pcnt);
         output_amount_custBD = findViewById(R.id.output_amount_custBD);
-        input_pcnt0 = findViewById(R.id.input_pcnt0);
+        input_pcnt0 = findViewById(R.id.input_pcnt1);
         scrollView_pcnt_list = findViewById(R.id.scrollView_pcnt_list);
 
         // 2. Define the listener/action
@@ -51,6 +51,9 @@ public class MainActivity3 extends AppCompatActivity {
             public void onClick(View v) {
                 ArrayList<Float> percentages = new ArrayList<Float>();
                 addRow();   // Add new row for new person
+
+                // Change visibility?
+                // for loop all EditText, if not empty, numberOfPeople++
             }
         });
     }
