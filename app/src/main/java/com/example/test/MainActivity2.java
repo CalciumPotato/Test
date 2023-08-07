@@ -43,6 +43,8 @@ public class MainActivity2 extends AppCompatActivity {
         // Check input: Empty? 0?
         if (checkValid.checkNumber(billAmount)) {
             checkValid.outputNumberInvalidity(output_amount_equalBD, "bill amount");
+            // Above: Change to show ERROR
+            // Change to TOAST
         }
         else if (checkValid.checkNumber(numberPeople)) {
             checkValid.outputNumberInvalidity(output_amount_equalBD, "number of people");
@@ -56,7 +58,7 @@ public class MainActivity2 extends AppCompatActivity {
             // Calculation:
             float result = amt / people;
 
-            output_amount_equalBD.setText("Amount per person: " + result);
+            output_amount_equalBD.setText("" + result);
         }
     }
 }
