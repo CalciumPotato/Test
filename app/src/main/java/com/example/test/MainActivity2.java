@@ -41,13 +41,13 @@ public class MainActivity2 extends AppCompatActivity {
         // Need to use toString() in order to check using isEmpty()
 
         // Check input: Empty? 0?
-        if (checkValid.checkNumber(billAmount)) {
-            checkValid.outputNumberInvalidity(output_amount_equalBD, "bill amount");
+        if (checkInvalid.checkNumber(billAmount)) {
+            checkInvalid.outputNumberInvalidity(output_amount_equalBD, "bill amount");
             // Above: Change to show ERROR
             // Change to TOAST
         }
-        else if (checkValid.checkNumber(numberPeople)) {
-            checkValid.outputNumberInvalidity(output_amount_equalBD, "number of people");
+        else if (checkInvalid.checkNumber(numberPeople)) {
+            checkInvalid.outputNumberInvalidity(output_amount_equalBD, "number of people");
             //output_amount_equalBD.setText("Please enter a number for number of people.");
         }
         else {

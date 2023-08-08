@@ -1,8 +1,9 @@
 package com.example.test;
 
+import android.widget.EditText;
 import android.widget.TextView;
 
-public class checkValid {
+public class checkInvalid {
 
     public static boolean checkNumber(String num)
     {
