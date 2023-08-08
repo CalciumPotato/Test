@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class MainActivity3 extends AppCompatActivity {
 
     // 0. Initialize
@@ -28,6 +30,7 @@ public class MainActivity3 extends AppCompatActivity {
 
     private int numPeople;
     private double totalBill;
+    private double result[];
     private String input_totalBill;
 
     @Override
@@ -133,15 +136,15 @@ public class MainActivity3 extends AppCompatActivity {
     private void calcPercentageBD() {
 
         double[] percentages = new double[numPeople];
+        result = new double[numPeople];
         int totalPcnt = 0;
 
         // Get all percentages
-        for (int i = 0; i < numPeople; i++) {
-//            EditText input_pcnt = (EditText) list_pcnt.getChildAt(i);    // Error
-//            String input_pcnt_str = input_pcnt.getText().toString();
-
+        for (int i = 0; i < numPeople; i++)             // <-- Check for error
+        {
             View view = list_pcnt.getChildAt(i);
-            if (view instanceof TableRow) {
+            if (view instanceof TableRow)
+            {
                 TableRow tableRow = (TableRow) view;
                 int numEditTexts = tableRow.getChildCount();
 
@@ -152,46 +155,51 @@ public class MainActivity3 extends AppCompatActivity {
                     if (childView instanceof EditText)
                     {
                         EditText editText = (EditText) childView;
-                        if (editText.getText().toString().isEmpty()) {
-                            output_amount_customBD.setText("ERR");
-                        }
-                        else{
+
+                        if (checkInvalid.checkPercentage(editText))
+                        {
                             int editTextValue = Integer.parseInt(editText.getText().toString());
                             tv_text.setText("" + editTextValue);
                             totalPcnt += editTextValue;
+
+                            result[i] = totalBill * editTextValue / 100;
+                        } else {
+                            editText.setText("0");
                         }
-
-
-                        // Now you can use the editTextValue as needed
                     }
                 }
             }
-
-//            if (!input_pcnt_str.isEmpty()) {
-//                percentages[i] = Double.parseDouble(input_pcnt_str);
-//                totalPcnt += percentages[i];
-//            }
-//            else
-//            {
-//                tv_text.setText("ERR");
-//            }
         }
 
+            // Sum and check sum of percentages
+            if (totalPcnt != 100) {
+                tv_text.setText("% ERR");
+            } else {
+                double totalAmount = Double.parseDouble(input_totalBill);
 
-        // Sum and check all percentages
-        if (totalPcnt != 100 || String.valueOf(editTextValue).isEmpty()) {
-            tv_text.setText("% ERR");
-        } else {
-            double totalAmount = Double.parseDouble(input_totalBill);
+                for (int j = 0; j < numPeople; j++) {
+                    //result[j] = totalAmount * percentages[j] / 100.0;
 
-            tv_text.setText("total pcnt = 100");
-//            for (int i = 0; i < numPeople; i++) {
-//                TextView output_amount_customBD = (TextView) row_pcnt.getChildAt(i);
-//
-//                double individualAmount = (percentages[i] / totalPcnt) * totalAmount;
-//                output_amount_customBD.setText("" + individualAmount);
-                // Display or use individualAmount as needed
+                    View view = list_pcnt.getChildAt(j);
+                    if (view instanceof TableRow) {
+                        TableRow tableRow = (TableRow) view;
+                        int numTextView = tableRow.getChildCount();
+
+                        for (int k = 0; k < numTextView; k++) {
+                            View childView = tableRow.getChildAt(j+2);  // <-- Not here
+
+                            if (childView instanceof TextView) {
+                                TextView textView = (TextView) childView;
+                                textView.setText("" + result[j]);           // <-- Almost there!!! Don't know why result display will shift right 1 view
+
+                            }
+                        }
+                    }
+                }
+
+                tv_text.setText("100%");
             }
 
         }
     }
+

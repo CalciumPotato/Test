@@ -14,9 +14,9 @@ public class checkInvalid {
         return false;
     }
 
-    public static boolean checkPercentage(String pcnt)
+    public static boolean checkPercentage(EditText editText)
     {
-        if (pcnt.isEmpty() || Float.parseFloat(pcnt) <= 0 || Float.parseFloat(pcnt) > 100)
+        if ((!editText.getText().toString().matches("")) && (Integer.parseInt(editText.getText().toString()) >= 0) && (Integer.parseInt(editText.getText().toString()) <= 100))
         {
             return true;
         }
