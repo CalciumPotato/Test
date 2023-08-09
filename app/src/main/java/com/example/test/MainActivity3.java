@@ -1,12 +1,8 @@
 package com.example.test;
 
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import java.text.NumberFormat;
 
 public class MainActivity3 extends AppCompatActivity {
 
@@ -22,12 +18,13 @@ public class MainActivity3 extends AppCompatActivity {
     private EditText input_amount_customBD;
     private EditText input_number_people;
     private LinearLayout list_pcnt;
-    private TableRow row_pcnt;
-    private TextView output_amount_customBD;
+    private TextView tv_person_pcnt;
     private TextView tv_text;
     private Button btn_confirm_people;
+    private Button btn_mode;
     private Button btn_calc_customBD;
 
+    private boolean modePcnt = true;
     private int numPeople;
     private double totalBill;
     private double result[];
@@ -44,8 +41,9 @@ public class MainActivity3 extends AppCompatActivity {
         input_number_people = findViewById(R.id.input_number_people);
         list_pcnt = findViewById(R.id.list_pcnt);
         btn_confirm_people = findViewById(R.id.btn_confirm_people);
-        //output_amount_customBD = findViewById(R.id.output_amount_customBD);
+        tv_person_pcnt = findViewById(R.id.tv_person_pcnt);
         tv_text = findViewById(R.id.tv_text);
+        btn_mode = findViewById(R.id.btn_mode);
         btn_calc_customBD = findViewById(R.id.btn_calc_customBD);
 
 
@@ -53,28 +51,58 @@ public class MainActivity3 extends AppCompatActivity {
         btn_confirm_people.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                confirmRow();
+                if (modePcnt) {
+                    confirmRow_pcnt();
+                }
+                else {
+                    confirmRow_ratio();
+                }
+            }
+        });
+
+        btn_mode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                modeChange();
             }
         });
 
         btn_calc_customBD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calcPercentageBD();
+                if (modePcnt) {
+                    calcPercentageBD();
+                }
+                else {
+                    calcRatioBD();
+                }
             }
         });
     }
 
-    private void confirmRow() {
+    private void modeChange() {
+        // Add if-else: Check current mode is percentage/ratio
+        // if ratio mode, change to percentage, vice versa
+        if (modePcnt) {
+            tv_person_pcnt.setText("Ratio each person:");
+            tv_text.setText("RATIO");
+            modePcnt = false;
+        }
+        else {
+            tv_person_pcnt.setText("Percentage each person:");
+            tv_text.setText("PCNT");
+            modePcnt = true;
+        }
+    }
+
+    private void confirmRow_pcnt() {
 
         input_totalBill = input_amount_customBD.getText().toString();
         String input_numPeople = input_number_people.getText().toString();
 
-        if (checkInvalid.checkNumber(input_totalBill)) {
-            //checkInvalid.outputNumberInvalidity(output_amount_customBD, "bill amount");
+        if (checkInvalid.numberIsInvalid(input_totalBill)) {
             tv_text.setText("$ ERR");
-        } else if (checkInvalid.checkNumber(input_numPeople)) {
-            //checkInvalid.outputNumberInvalidity(output_amount_customBD, "number of people");
+        } else if (checkInvalid.numberIsInvalid(input_numPeople)) {
             tv_text.setText("NUM ERR");
         } else {
 
@@ -90,35 +118,27 @@ public class MainActivity3 extends AppCompatActivity {
                 TableRow row_pcnt = new TableRow(MainActivity3.this);
 
                 TextView tv_index = new TextView(MainActivity3.this);
-                tv_index.setTextColor(Color.WHITE);
-                tv_index.setGravity(Gravity.CENTER);
-                tv_index.setPadding(10, 0, 0, 0);
-                tv_index.setInputType(InputType.TYPE_CLASS_NUMBER);  // android:inputType="number"
-                tv_index.setTextSize(18);
+                formatView.tv_index(tv_index);
                 tv_index.setText((i + 1) + ".");
 
                 EditText input_pcnt = new EditText(MainActivity3.this);
-                input_pcnt.setEms(6);
-                input_pcnt.setPadding(10, 12, 10, 12);
-                input_pcnt.setInputType(InputType.TYPE_CLASS_NUMBER);
-                input_pcnt.setTextColor(Color.WHITE);
+                formatView.input_pcnt(input_pcnt);
                 input_pcnt.setHintTextColor(getColor(R.color.gray));
                 input_pcnt.setHint("Percentage " + (i + 1));
 
                 TextView output_amount_customBD = new TextView(MainActivity3.this);
-                output_amount_customBD.setEms(6);
-                output_amount_customBD.setGravity(Gravity.RIGHT);
-                output_amount_customBD.setPadding(0, 0, 8, 0);
-                output_amount_customBD.setTextColor(Color.WHITE);
-                output_amount_customBD.setTextSize(22);
-                output_amount_customBD.setTypeface(Typeface.DEFAULT_BOLD);
-                output_amount_customBD.setText("0");     // Individual result
+                formatView.output_amount_customBD(output_amount_customBD);
 
                 Button btn_clr = new Button(MainActivity3.this);
-                //btn_clr.setBackgroundColor(getColor(R.color.vigna_red));
                 btn_clr.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.vigna_red)));
-                btn_clr.setTextColor(Color.WHITE);
-                btn_clr.setText("Clear");
+                formatView.btn_clr(btn_clr);
+
+                btn_clr.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        input_pcnt.setText("0");
+                    }
+                });
 
                 list_pcnt.addView(row_pcnt);
                 row_pcnt.addView(tv_index);
@@ -133,14 +153,73 @@ public class MainActivity3 extends AppCompatActivity {
         }
     }
 
+    private void confirmRow_ratio() {
+
+        input_totalBill = input_amount_customBD.getText().toString();
+        String input_numPeople = input_number_people.getText().toString();
+
+        if (checkInvalid.numberIsInvalid(input_totalBill)) {
+            tv_text.setText("$ ERR");
+        } else if (checkInvalid.numberIsInvalid(input_numPeople)) {
+            tv_text.setText("NUM ERR");
+        } else {
+
+            // Variables for calculation:
+            totalBill = Double.parseDouble(input_totalBill);
+            numPeople = Integer.parseInt(input_numPeople);
+
+            // Remove previously added fields
+            list_pcnt.removeAllViews();
+
+            for (int i = 0; i < numPeople; i++) {
+
+                TableRow row_pcnt = new TableRow(MainActivity3.this);
+
+                TextView tv_index = new TextView(MainActivity3.this);
+                formatView.tv_index(tv_index);
+                tv_index.setText((i + 1) + ".");
+
+                EditText input_ratio = new EditText(MainActivity3.this);
+                formatView.input_pcnt(input_ratio);
+                input_ratio.setHintTextColor(getColor(R.color.gray));
+                input_ratio.setHint("Ratio " + (i + 1));
+
+                TextView output_amount_customBD = new TextView(MainActivity3.this);
+                formatView.output_amount_customBD(output_amount_customBD);
+
+                Button btn_clr = new Button(MainActivity3.this);
+                btn_clr.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.vigna_red)));
+                formatView.btn_clr(btn_clr);
+
+                btn_clr.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        input_ratio.setText("0");
+                    }
+                });
+
+                list_pcnt.addView(row_pcnt);
+                row_pcnt.addView(tv_index);
+                row_pcnt.addView(input_ratio);
+                row_pcnt.addView(output_amount_customBD);
+                row_pcnt.addView(btn_clr);
+            }
+
+            // Add a "Calculate Split" button after the percentage fields
+//            Button buttonCalculateSplit = new Button(MainActivity3.this);
+//            buttonCalculateSplit.setText("Calculate Split");
+        }
+    }
+
     private void calcPercentageBD() {
 
-        double[] percentages = new double[numPeople];
+        input_totalBill = input_amount_customBD.getText().toString();
+        totalBill = Double.parseDouble(input_totalBill);
         result = new double[numPeople];
         int totalPcnt = 0;
 
         // Get all percentages
-        for (int i = 0; i < numPeople; i++)             // <-- Check for error
+        for (int i = 0; i < numPeople; i++)
         {
             View view = list_pcnt.getChildAt(i);
             if (view instanceof TableRow)
@@ -156,7 +235,7 @@ public class MainActivity3 extends AppCompatActivity {
                     {
                         EditText editText = (EditText) childView;
 
-                        if (checkInvalid.checkPercentage(editText))
+                        if (checkInvalid.percentageIsValid(editText))
                         {
                             int editTextValue = Integer.parseInt(editText.getText().toString());
                             tv_text.setText("" + editTextValue);
@@ -172,34 +251,107 @@ public class MainActivity3 extends AppCompatActivity {
         }
 
             // Sum and check sum of percentages
+            // If total percentage is 100%, print the individual results
             if (totalPcnt != 100) {
                 tv_text.setText("% ERR");
             } else {
-                double totalAmount = Double.parseDouble(input_totalBill);
+                // Limit to 2 decimal places
+                NumberFormat nf= NumberFormat.getInstance();
+                nf.setMaximumFractionDigits(2);
 
                 for (int j = 0; j < numPeople; j++) {
-                    //result[j] = totalAmount * percentages[j] / 100.0;
 
                     View view = list_pcnt.getChildAt(j);
                     if (view instanceof TableRow) {
                         TableRow tableRow = (TableRow) view;
-                        int numTextView = tableRow.getChildCount();
+                        int numChild = tableRow.getChildCount();     // 4 children
 
-                        for (int k = 0; k < numTextView; k++) {
-                            View childView = tableRow.getChildAt(j+2);  // <-- Not here
+                        // Print result at child index 2
+                        for (int k = 0; k < numChild; k++) {
+                            View childView = tableRow.getChildAt(2);
 
                             if (childView instanceof TextView) {
                                 TextView textView = (TextView) childView;
-                                textView.setText("" + result[j]);           // <-- Almost there!!! Don't know why result display will shift right 1 view
-
+                                textView.setText("" + nf.format(result[j]));
                             }
                         }
                     }
                 }
-
-                tv_text.setText("100%");
+                tv_text.setText("PCNT");
             }
-
         }
+
+    private void calcRatioBD() {
+
+        input_totalBill = input_amount_customBD.getText().toString();
+        totalBill = Double.parseDouble(input_totalBill);
+        int[] ratio = new int[numPeople];   // Store input ratio
+        result = new double[numPeople];
+        int totalRatio = 0;
+
+        // Get all ratio
+        for (int i = 0; i < numPeople; i++)
+        {
+            View view = list_pcnt.getChildAt(i);
+            if (view instanceof TableRow)
+            {
+                TableRow tableRow = (TableRow) view;
+                int numEditTexts = tableRow.getChildCount();
+
+                for (int j = 0; j < numEditTexts; j++)
+                {
+                    View childView = tableRow.getChildAt(j);
+
+                    if (childView instanceof EditText)
+                    {
+                        EditText editText = (EditText) childView;
+
+                        if (checkInvalid.ratioIsValid(editText))
+                        {
+                            int editTextValue = Integer.parseInt(editText.getText().toString());
+                            tv_text.setText("" + editTextValue);
+                            ratio[i] = editTextValue;
+                            totalRatio += editTextValue;
+
+                        } else {
+                            editText.setText("0");
+                        }
+                    }
+                }
+            }
+        }
+
+        // Sum and check sum of ratio
+        // If total ratio <= 0, print error
+        if (totalRatio <= 0) {
+            tv_text.setText(": ERR");
+        } else {
+            // Limit to 2 decimal places
+            NumberFormat nf= NumberFormat.getInstance();
+            nf.setMaximumFractionDigits(2);
+
+            for (int j = 0; j < numPeople; j++) {
+
+                View view = list_pcnt.getChildAt(j);
+                if (view instanceof TableRow) {
+                    TableRow tableRow = (TableRow) view;
+                    int numChild = tableRow.getChildCount();     // 4 children
+
+                    // Print result at child index 2
+                    for (int k = 0; k < numChild; k++) {
+                        View childView = tableRow.getChildAt(2);
+
+                        if (childView instanceof TextView) {
+                            result[j] = totalBill * ratio[j] / totalRatio;
+
+                            TextView textView = (TextView) childView;
+                            textView.setText("" + nf.format(result[j]));
+                        }
+                    }
+                }
+            }
+            tv_text.setText("RATIO");
+        }
+    }
     }
 
