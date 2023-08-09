@@ -4,21 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     // 0. Initialize buttons
     private FrameLayout btn_equalBD;
     private FrameLayout btn_customBD;
-    private FrameLayout btn_combinedBD;
+    private FrameLayout btn_amountBD;
     private FrameLayout btn_history;
 
     @Override
@@ -29,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         // 1. Bridging between the components in XML to the program
         btn_equalBD = findViewById(R.id.btn_goEqualBD);
         btn_customBD = findViewById(R.id.btn_goCustomBD);
-        btn_combinedBD = findViewById(R.id.btn_goCombinedBD);
+        btn_amountBD = findViewById(R.id.btn_goCombinedBD);
         btn_history = findViewById(R.id.btn_goHistory);
 
         // 2. Define the listener/action
@@ -61,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // 2.3 Button: Go to Combined Breakdown
-        btn_combinedBD.setOnClickListener(new View.OnClickListener() {
+        btn_amountBD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {

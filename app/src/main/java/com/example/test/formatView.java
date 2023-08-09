@@ -25,6 +25,13 @@ public class formatView {
         input_pcnt.setTextColor(Color.WHITE);
     }
 
+    public static void input_amount(EditText input_pcnt) {
+        input_pcnt.setEms(6);
+        input_pcnt.setPadding(10, 12, 10, 12);
+        input_pcnt.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        input_pcnt.setTextColor(Color.WHITE);
+    }
+
     public static void output_amount_customBD(TextView output_amount_customBD) {
         output_amount_customBD.setEms(6);
         output_amount_customBD.setGravity(Gravity.RIGHT);

@@ -2,16 +2,16 @@ package com.example.test;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 
 public class MainActivity2 extends AppCompatActivity {
-
-    private SQLiteAdapter mySQLiteAdapter;  // To use our defined SQLiteAdapter class, we have to 1. declare it (and 2. instantiate below)
 
     // Initialize buttons
     private EditText input_amount_equalBD;
@@ -23,21 +23,6 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
-        // SQLite
-        mySQLiteAdapter = new SQLiteAdapter(this);
-        mySQLiteAdapter.openToWrite();
-
-        mySQLiteAdapter.deleteAll();    // We delete the table to avoid redundancy due to hardcoded SQL insert
-        mySQLiteAdapter.insert("Mee Goreng Mamak", "Noodles", 10.0f);
-        // Code: Tell user insert successfully.
-        mySQLiteAdapter.close();
-
-        // Read the data from the table
-        mySQLiteAdapter.openToRead();
-        String contentRead = mySQLiteAdapter.queueAll_Five();
-        // Code: Display result to user
-
 
         // 1. Bridging between the components in XML to the program
         input_amount_equalBD = findViewById(R.id.input_amount_equalBD);
@@ -61,13 +46,20 @@ public class MainActivity2 extends AppCompatActivity {
 
         // Check input: Empty? 0?
         if (checkInvalid.numberIsInvalid(billAmount)) {
-            checkInvalid.outputNumberInvalidity(output_amount_equalBD, "bill amount");
-            // Above: Change to show ERROR
-            // Change to TOAST
+            output_amount_equalBD.setText("$ ERR");
+
+            Toast toast = Toast.makeText(this, "Invalid bill amount. Please enter a proper bill amount.", Toast.LENGTH_SHORT);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if( v != null) v.setGravity(Gravity.CENTER);
+            toast.show();
         }
         else if (checkInvalid.numberIsInvalid(numberPeople)) {
-            checkInvalid.outputNumberInvalidity(output_amount_equalBD, "number of people");
-            //output_amount_equalBD.setText("Please enter a number for number of people.");
+            output_amount_equalBD.setText("NUM ERR");
+
+            Toast toast = Toast.makeText(this, "Invalid number of people. Please enter a proper number of people.", Toast.LENGTH_SHORT);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if( v != null) v.setGravity(Gravity.CENTER);
+            toast.show();
         }
         else {
             // Done checking, convert Strings to numbers

@@ -3,12 +3,14 @@ package com.example.test;
 import android.content.res.ColorStateList;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 
@@ -95,15 +97,30 @@ public class MainActivity3 extends AppCompatActivity {
         }
     }
 
-    private void confirmRow_pcnt() {
+    private boolean confirmRow_pcnt() {
 
         input_totalBill = input_amount_customBD.getText().toString();
         String input_numPeople = input_number_people.getText().toString();
 
+        // Check input validity and notify user
         if (checkInvalid.numberIsInvalid(input_totalBill)) {
             tv_text.setText("$ ERR");
+
+            Toast toast = Toast.makeText(this, "Invalid bill amount. Please enter a proper bill amount.", Toast.LENGTH_SHORT);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if(v != null) v.setGravity(Gravity.CENTER);
+            toast.show();
+
+            return false;
         } else if (checkInvalid.numberIsInvalid(input_numPeople)) {
             tv_text.setText("NUM ERR");
+
+            Toast toast = Toast.makeText(this, "Invalid number of people. Please enter a proper number of people.", Toast.LENGTH_SHORT);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if(v != null) v.setGravity(Gravity.CENTER);
+            toast.show();
+
+            return false;
         } else {
 
             // Variables for calculation:
@@ -113,6 +130,7 @@ public class MainActivity3 extends AppCompatActivity {
             // Remove previously added fields
             list_pcnt.removeAllViews();
 
+            // Construct views according to number of people
             for (int i = 0; i < numPeople; i++) {
 
                 TableRow row_pcnt = new TableRow(MainActivity3.this);
@@ -133,6 +151,7 @@ public class MainActivity3 extends AppCompatActivity {
                 btn_clr.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.vigna_red)));
                 formatView.btn_clr(btn_clr);
 
+                // Set button listener
                 btn_clr.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -140,28 +159,41 @@ public class MainActivity3 extends AppCompatActivity {
                     }
                 });
 
+                // Add views
                 list_pcnt.addView(row_pcnt);
                 row_pcnt.addView(tv_index);
                 row_pcnt.addView(input_pcnt);
                 row_pcnt.addView(output_amount_customBD);
                 row_pcnt.addView(btn_clr);
             }
-
-            // Add a "Calculate Split" button after the percentage fields
-//            Button buttonCalculateSplit = new Button(MainActivity3.this);
-//            buttonCalculateSplit.setText("Calculate Split");
+            return true;
         }
     }
 
-    private void confirmRow_ratio() {
+    private boolean confirmRow_ratio() {
 
         input_totalBill = input_amount_customBD.getText().toString();
         String input_numPeople = input_number_people.getText().toString();
 
+        // Check input validity and notify user
         if (checkInvalid.numberIsInvalid(input_totalBill)) {
             tv_text.setText("$ ERR");
+
+            Toast toast = Toast.makeText(this, "Invalid bill amount. Please enter a proper bill amount.", Toast.LENGTH_SHORT);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if(v != null) v.setGravity(Gravity.CENTER);
+            toast.show();
+
+            return false;
         } else if (checkInvalid.numberIsInvalid(input_numPeople)) {
             tv_text.setText("NUM ERR");
+
+            Toast toast = Toast.makeText(this, "Invalid number of people. Please enter a proper number of people.", Toast.LENGTH_SHORT);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if(v != null) v.setGravity(Gravity.CENTER);
+            toast.show();
+
+            return false;
         } else {
 
             // Variables for calculation:
@@ -171,6 +203,7 @@ public class MainActivity3 extends AppCompatActivity {
             // Remove previously added fields
             list_pcnt.removeAllViews();
 
+            // Construct views according to number of people
             for (int i = 0; i < numPeople; i++) {
 
                 TableRow row_pcnt = new TableRow(MainActivity3.this);
@@ -191,6 +224,7 @@ public class MainActivity3 extends AppCompatActivity {
                 btn_clr.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.vigna_red)));
                 formatView.btn_clr(btn_clr);
 
+                // Set listener for button
                 btn_clr.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -198,16 +232,14 @@ public class MainActivity3 extends AppCompatActivity {
                     }
                 });
 
+                // Add views
                 list_pcnt.addView(row_pcnt);
                 row_pcnt.addView(tv_index);
                 row_pcnt.addView(input_ratio);
                 row_pcnt.addView(output_amount_customBD);
                 row_pcnt.addView(btn_clr);
             }
-
-            // Add a "Calculate Split" button after the percentage fields
-//            Button buttonCalculateSplit = new Button(MainActivity3.this);
-//            buttonCalculateSplit.setText("Calculate Split");
+            return true;
         }
     }
 
@@ -255,7 +287,7 @@ public class MainActivity3 extends AppCompatActivity {
             if (totalPcnt != 100) {
                 tv_text.setText("% ERR");
             } else {
-                // Limit to 2 decimal places
+                // Limit result to 2 decimal places
                 NumberFormat nf= NumberFormat.getInstance();
                 nf.setMaximumFractionDigits(2);
 
@@ -326,7 +358,7 @@ public class MainActivity3 extends AppCompatActivity {
         if (totalRatio <= 0) {
             tv_text.setText(": ERR");
         } else {
-            // Limit to 2 decimal places
+            // Limit result to 2 decimal places
             NumberFormat nf= NumberFormat.getInstance();
             nf.setMaximumFractionDigits(2);
 
@@ -353,5 +385,4 @@ public class MainActivity3 extends AppCompatActivity {
             tv_text.setText("RATIO");
         }
     }
-    }
-
+}
