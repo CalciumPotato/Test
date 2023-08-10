@@ -170,7 +170,6 @@ public class MainActivity4 extends AppCompatActivity {
                                 remBill = result[i];
                             }
 
-
                         } else {
                             editText.setText("AMT ERR");
                         }
@@ -205,7 +204,7 @@ public class MainActivity4 extends AppCompatActivity {
             }
         }
 
-        if (remBill != 0) {
+        if (Double.parseDouble(nf.format(remBill)) != 0) {
             tv_text.setText("Remain: " + nf.format(remBill));
         }
         else {
