@@ -92,16 +92,39 @@
             android:textStyle="bold"
             android:text="0" />
 
-        <Button
-        android:id="@+id/btn_calc_equalBD"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="right"
-        android:background="@drawable/rounded_button"
-        android:text="="
-        android:textColor="#ffffff"
-        android:textSize="32dp"
-        android:textStyle="bold" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right">
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="@color/light_gray"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:text="Save" />
+
+                <Button
+                    android:id="@+id/btn_calc_equalBD"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/rounded_button"
+                    android:text="="
+                    android:textColor="#ffffff"
+                    android:textSize="32dp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+        </TableLayout>
 
     </LinearLayout>
 

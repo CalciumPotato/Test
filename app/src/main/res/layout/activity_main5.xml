@@ -36,13 +36,13 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_history_empty"
+            android:id="@+id/tv_history"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="18dp"
+            android:textSize="20dp"
             android:textColor="@color/gray"
-            android:text="Error code: Tak Ada Rehat.\nOops, insufficient time to do SQLite due to other courseworks." />
+            android:text="Error: Failed to get FIS auth token." />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
